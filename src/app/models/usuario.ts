@@ -1,0 +1,8 @@
+export interface Usuario{
+    id?: string
+    name: string,
+    email: string,
+    phone: string,
+    password: string,
+    rol: 'ROLE_ADMIN' | 'ROLE_VETERINARIO'
+}
