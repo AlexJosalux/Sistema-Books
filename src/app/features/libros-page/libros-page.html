@@ -1,1 +1,80 @@
-<app-formulario></app-formulario>
+<div class="container mx-auto p-6">
+  <div class="flex justify-between items-center mb-8">
+    <div>
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+        Catálogo de Libros
+      </h1>
+    </div>
+    
+    <a routerLink="/nuevo-libro" 
+       class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all flex items-center">
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+      </svg>
+      Nuevo Libro
+    </a>
+  </div>
+
+  <div class="bg-white shadow-xl rounded-xl overflow-hidden border border-gray-100">
+    <table class="min-w-full table-auto">
+      <thead>
+        <tr class="bg-gray-50 text-gray-500 uppercase text-xs leading-normal border-b border-gray-200">
+          <th class="py-4 px-6 text-left font-bold">Título del Libro</th>
+          <th class="py-4 px-6 text-left font-bold">Autor</th>
+          <th class="py-4 px-6 text-center font-bold">Año</th>
+          <th class="py-4 px-6 text-center font-bold">Precio Unitario</th>
+          <th class="py-4 px-6 text-center font-bold">Acciones</th>
+        </tr>
+      </thead>
+      
+      <tbody class="text-gray-700 text-sm">
+        @for (libro of listaLibros; track libro.id) {
+          <tr class="border-b border-gray-100 hover:bg-blue-50/30 transition-colors">
+            
+            <td class="py-4 px-6 text-left">
+              <div class="font-bold text-gray-900">{{ libro.titulo | uppercase }}</div>
+              <div class="text-xs text-gray-400">ID: {{ libro.id }}</div>
+            </td>
+
+            <td class="py-4 px-6 text-left italic">
+              {{ libro.autor }}
+            </td>
+
+            <td class="py-4 px-6 text-center font-medium text-gray-600">
+              {{ libro.anio }}
+            </td>
+
+            <td class="py-4 px-6 text-center">
+              <span class="bg-green-100 text-green-700 py-1 px-3 rounded-full text-xs font-bold">
+                {{ libro.precio | currency:'USD':'symbol':'1.2-2' }}
+              </span>
+            </td>
+
+            <td class="py-4 px-6 text-center">
+              <div class="flex justify-center space-x-3">
+                <button (click)="eliminar(libro.id!)" 
+                        class="p-2 text-red-500 hover:bg-red-100 rounded-lg transition-colors"
+                        title="Eliminar libro">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="py-12 text-center"> <div class="flex flex-col items-center">
+                <svg class="w-12 h-12 text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p class="text-gray-400 font-medium">No se encontraron libros registrados.</p>
+              </div>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

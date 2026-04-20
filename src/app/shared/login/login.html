@@ -1,165 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login/Signup</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div class="container mx-auto px-4">
-        <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
-            <div class="p-8">
-                <!-- Toggle between Login and Signup -->
-                <div class="flex justify-center mb-8">
-                    <button id="loginTab" class="px-6 py-2 font-medium text-white bg-blue-500 rounded-l-lg focus:outline-none">
-                        Login
-                    </button>
-                    <button id="signupTab" class="px-6 py-2 font-medium text-blue-500 bg-white border border-blue-500 rounded-r-lg focus:outline-none">
-                        Sign Up
-                    </button>
-                </div>
-
-                <!-- Login Form -->
-                <form (ngSubmit)="iniciarSesion()" id="loginForm" class="space-y-6">
-                    <h2 class="text-2xl font-bold text-center text-gray-800">Welcome Back</h2>
-                    <div>
-                        <label for="loginEmail" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input [(ngModel)]="email" name=    "email" type="email" id="loginEmail" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label for="loginPassword" class="block text-sm font-medium text-gray-700">Password</label>
-                        <input [(ngModel)]="password" name="password" type="password" id="loginPassword" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
-                            <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-blue-500 focus:ring-blue-500 border-gray-300 rounded">
-                            <label for="remember-me" class="ml-2 block text-sm text-gray-700">Remember me</label>
-                        </div>
-                        <div class="text-sm">
-                            <a href="#" class="font-medium text-blue-500 hover:text-blue-700">Forgot password?</a>
-                        </div>
-                    </div>
-                    <div>
-                        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Sign in
-                        </button>
-                    </div>
-                </form>
-
-                <!-- Signup Form (Hidden by default) -->
-                <form id="signupForm" class="space-y-6 hidden">
-                    <h2 class="text-2xl font-bold text-center text-gray-800">Create Account</h2>
-                    <div>
-                        <label for="signupName" class="block text-sm font-medium text-gray-700">Full Name</label>
-                        <input type="text" id="signupName" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label for="signupEmail" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" id="signupEmail" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label for="signupPassword" class="block text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" id="signupPassword" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label for="confirmPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
-                        <input type="password" id="confirmPassword" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                    <div class="flex items-center">
-                        <input id="terms" name="terms" type="checkbox" required class="h-4 w-4 text-blue-500 focus:ring-blue-500 border-gray-300 rounded">
-                        <label for="terms" class="ml-2 block text-sm text-gray-700">
-                            I agree to the <a href="#" class="text-blue-500 hover:text-blue-700">Terms and Conditions</a>
-                        </label>
-                    </div>
-                    <div>
-                        <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            Create Account
-                        </button>
-                    </div>
-                </form>
-
-                <!-- Social Login -->
-                <div class="mt-6">
-                    <div class="relative">
-                        <div class="absolute inset-0 flex items-center">
-                            <div class="w-full border-t border-gray-300"></div>
-                        </div>
-                        <div class="relative flex justify-center text-sm">
-                            <span class="px-2 bg-white text-gray-500">Or continue with</span>
-                        </div>
-                    </div>
-                    <div class="mt-6 grid grid-cols-2 gap-3">
-                        <button type="button" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            <img class="h-5 w-5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROtT2Um38jtuqcDEmCfCx3tEqzORl-PCvxarTPD9jZlFvd9djCM7Gl36bGA4X-JBaMEmk&usqp=CAU" alt="Google">
-                        </button>
-                        <button type="button" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                            <img class="h-5 w-5" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROtT2Um38jtuqcDEmCfCx3tEqzORl-PCvxarTPD9jZlFvd9djCM7Gl36bGA4X-JBaMEmk&usqp=CAU" alt="GitHub">
-                        </button>
-                    </div>
-                </div>
-            </div>
+<div class="bg-slate-50 min-h-[85vh] flex items-center justify-center p-4">
+  <div class="w-full max-w-md">
+    
+    <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 p-10">
+      
+      <div class="text-center mb-10">
+        <div class="inline-flex items-center justify-center w-12 h-12 bg-blue-600 rounded-xl mb-4 shadow-lg shadow-blue-200">
+          <img src="/images/logo.png" class="h-6 w-auto brightness-0 invert" alt="Logo">
         </div>
+        <h2 class="text-2xl font-bold text-slate-900 tracking-tight">Acceso al Sistema</h2>
+        <p class="text-slate-400 text-sm mt-1 font-medium">Ingresa tus credenciales para continuar</p>
+      </div>
+
+      <div *ngIf="errorLogin" 
+           class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-xl flex items-center animate-in fade-in slide-in-from-top-2 duration-300">
+        <svg class="w-5 h-5 text-red-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <span class="text-sm text-red-800 font-medium italic">Usuario o contraseña incorrectos.</span>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="iniciarSesion()" class="space-y-6">
+        
+        <div>
+          <label class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-2 block ml-1">Correo Electrónico</label>
+          <input 
+            formControlName="email" 
+            type="email" 
+            placeholder="admin@books.com"
+            class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all placeholder:text-slate-300 text-slate-700"
+            [ngClass]="{'border-red-300 bg-red-50/30': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}">
+          
+          <p *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-[10px] text-red-500 font-bold mt-1 ml-2 uppercase tracking-wider">
+            Formato de correo inválido
+          </p>
+        </div>
+
+        <div>
+          <label class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 mb-2 block ml-1">Contraseña</label>
+          <input 
+            formControlName="password" 
+            type="password" 
+            placeholder="••••••••"
+            class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-600 focus:bg-white outline-none transition-all text-slate-700"
+            [ngClass]="{'border-red-300 bg-red-50/30': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}">
+          
+          <p *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-[10px] text-red-500 font-bold mt-1 ml-2 uppercase tracking-wider">
+            Mínimo 6 caracteres
+          </p>
+        </div>
+
+        <div class="pt-2">
+          <button 
+            type="submit" 
+            [disabled]="loginForm.invalid"
+            class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-xl shadow-blue-600/20 transition-all transform active:scale-[0.97] disabled:bg-slate-200 disabled:shadow-none disabled:text-slate-400 disabled:cursor-not-allowed">
+            Iniciar Sesión
+          </button>
+        </div>
+
+      </form>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginTab = document.getElementById('loginTab');
-            const signupTab = document.getElementById('signupTab');
-            const loginForm = document.getElementById('loginForm');
-            const signupForm = document.getElementById('signupForm');
-
-            // Switch to Signup form
-            signupTab.addEventListener('click', function(e) {
-                e.preventDefault();
-                loginForm.classList.add('hidden');
-                signupForm.classList.remove('hidden');
-                loginTab.classList.remove('bg-blue-500', 'text-white');
-                loginTab.classList.add('bg-white', 'border', 'border-blue-500', 'text-blue-500');
-                signupTab.classList.remove('bg-white', 'border', 'border-blue-500', 'text-blue-500');
-                signupTab.classList.add('bg-blue-500', 'text-white');
-            });
-
-            // Switch to Login form
-            loginTab.addEventListener('click', function(e) {
-                e.preventDefault();
-                signupForm.classList.add('hidden');
-                loginForm.classList.remove('hidden');
-                signupTab.classList.remove('bg-blue-500', 'text-white');
-                signupTab.classList.add('bg-white', 'border', 'border-blue-500', 'text-blue-500');
-                loginTab.classList.remove('bg-white', 'border', 'border-blue-500', 'text-blue-500');
-                loginTab.classList.add('bg-blue-500', 'text-white');
-            });
-
-            // Handle Login form submission
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = document.getElementById('loginEmail').value;
-                const password = document.getElementById('loginPassword').value;
-                
-                // Here you would typically send this data to your server
-                console.log('Login attempt with:', { email, password });
-                alert('Login functionality would be implemented here');
-            });
-
-            // Handle Signup form submission
-            signupForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = document.getElementById('signupName').value;
-                const email = document.getElementById('signupEmail').value;
-                const password = document.getElementById('signupPassword').value;
-                const confirmPassword = document.getElementById('confirmPassword').value;
-                
-                if (password !== confirmPassword) {
-                    alert('Passwords do not match!');
-                    return;
-                }
-                
-                // Here you would typically send this data to your server
-                console.log('Signup attempt with:', { name, email, password });
-                alert('Account creation would be implemented here');
-            });
-        });
-    </script>
-</body>
-</html>>
+  </div>
+</div>

@@ -1,44 +1,45 @@
-import { map, Observable } from 'rxjs';
-import { Usuario } from '../models/usuario';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { map, Observable, Subject } from 'rxjs';
+import { Libro } from '../models/libro';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsuarioService {
+export class LibrosService {
   private http = inject(HttpClient);
 
-  private API_USUARIOS = 'https://minibooks-efa1c-default-rtdb.firebaseio.com/';
+  private API_URL = 'https://minibooks-efa1c-default-rtdb.firebaseio.com';
 
-
-  //Metodo GET
-  getUsuarios(): Observable<Usuario[]> {
-    return this.http.get<{ [key: string]: Usuario }>(`${this.API_USUARIOS}/users.json`).pipe(
+  getLibros(): Observable<Libro[]> {
+    return this.http.get<{ [key: string]: Libro }>(`${this.API_URL}/libros.json`).pipe(
       map(response => {
         if (!response) {
           return [];
         }
-        return Object.keys(response).map(id => {
-          const usuarioConId = { ...response[id], id: id };
-          return usuarioConId
-        })
+        return Object.keys(response).map(id => ({
+          ...response[id],
+          id: id 
+        }));
       })
-    )
+    );
   }
 
-  //Metodo POST
-  postUsuario(usuario: Usuario):Observable<Usuario>{
-    return this.http.post<Usuario>(`${this.API_USUARIOS}/users.json`, usuario);
+  postLibro(libro: any): Observable<any> {
+    return this.http.post(`${this.API_URL}/libros.json`, libro);
   }
 
-  //Metodo PUT
-  putUsuario(id: string, usuario: Usuario): Observable<Usuario>{
-    return this.http.put<Usuario>(`${this.API_USUARIOS}/users/${id}.json`, usuario);
+  putLibro(id: string, libro: Libro): Observable<Libro> {
+    return this.http.put<Libro>(`${this.API_URL}/libros/${id}.json`, libro);
   }
 
-  //Metodo PUT
-  deleteUsuario(id: string): Observable<Usuario>{
-    return this.http.delete<Usuario>(`${this.API_USUARIOS}/users/${id}.json`);
+  deleteLibro(id: string): Observable<any> {
+    return this.http.delete(`${this.API_URL}/libros/${id}.json`);
   }
-}
+  private actualizarListaSource = new Subject<void>();
+  actualizarLista$ = this.actualizarListaSource.asObservable();
+
+  dispararActualizacion() {
+    this.actualizarListaSource.next();
+  }
+} 

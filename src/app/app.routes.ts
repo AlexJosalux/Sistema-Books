@@ -1,21 +1,17 @@
 import { Routes } from '@angular/router';
 import { HomePage } from './features/home-page/home-page';
-import { NosotrosPage } from './features/nosotros-page/nosotros-page';
-import { ConsultasPage } from './features/consultas-page/consultas-page';
-import { MascotasPage } from './features/mascotas-page/mascotas-page';
-import { Usuarios } from './features/usuarios/usuarios';
-import { Login } from './shared/login/login';
+import { LoginComponent } from './shared/login/login';
 import { authGuard } from './guards/auth-guard';
+import { LibrosPage } from './features/libros-page/libros-page';
+import { NuevoLibroPage } from './features/nuevo-libro-page/nuevo-libro-page';
+import { deactivateGuard } from './guards/deactivate-guard';
 
 export const routes: Routes = [
-    //Ruta inicial
-    {path:'',component: HomePage},
-    {path:'nosotros', component:NosotrosPage},
-    {path:'consultas', component:ConsultasPage},
-    {path:'mascotas', component: MascotasPage},
-    {path:'usuarios', component:Usuarios, canActivate:[authGuard]},
-    {path: 'login', component: Login}
 
-    //Ruta error 404
-    //{path:'**', component:Pagina404}
+    { path: '', component: HomePage },
+    { path: 'login', component: LoginComponent },
+    { path: 'libros', component: LibrosPage, canActivate: [authGuard]},
+    { path: 'nuevo-libro', component: NuevoLibroPage, canActivate: [authGuard],canDeactivate: [deactivateGuard] },
+    { path: '**', redirectTo: '' }
 ];
+   

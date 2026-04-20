@@ -1,21 +1,24 @@
 import { Component, inject } from '@angular/core';
-import { Router, RouterLink } from "@angular/router";
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { AuthService } from '../../services/auth-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [RouterLink],
+  imports: [RouterLink, RouterLinkActive, CommonModule], 
   templateUrl: './nav-bar.html',
   styleUrl: './nav-bar.css',
 })
 export class NavBar {
-  private servicioAuth = inject(AuthService);
-  private router = inject(Router)
+  public servicioAuth = inject(AuthService);
+  private router = inject(Router);
 
-    cerrarSesion(){
+  isLoggedIn = this.servicioAuth.sesionInciada;
+
+  cerrarSesion() {
     this.servicioAuth.logout();
-    alert('Cerrado')
-    this.router.navigate(['nosotros'])
-  } 
+    alert('Sesión cerrada');
 
+    this.router.navigate(['/login']);
+  }
 }
